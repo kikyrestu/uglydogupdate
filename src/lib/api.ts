@@ -6,7 +6,7 @@ const api = axios.create({
     ? (process.env.NEXT_PUBLIC_API_URL || 'https://your-domain.com') 
     : 'http://localhost:3000', // Next.js development server
   withCredentials: true,
-  timeout: 10000, // 10 seconds timeout
+  timeout: 15000, // 15 seconds timeout
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -34,6 +34,12 @@ api.interceptors.response.use(
         console.log('Network error - API might be unavailable')
       } else {
         console.error('API Error:', error.response?.data || error.message)
+        console.error('API Error Details:', {
+          status: error.response?.status,
+          statusText: error.response?.statusText,
+          url: error.config?.url,
+          method: error.config?.method
+        })
       }
     }
     return Promise.reject(error)

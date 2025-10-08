@@ -255,7 +255,7 @@ export default function UglyDogGame() {
     if (!isAuthenticated || score === 0) return
 
     try {
-      await api.post('/auth/game/saved', { session_score: score })
+      await api.post('/api/auth/game/saved', { session_score: score })
       fetchLeaderboard() // Refresh leaderboard
     } catch (error) {
       console.log('Could not save score to backend')
