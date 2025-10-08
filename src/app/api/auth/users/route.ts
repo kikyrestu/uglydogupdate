@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     const user = await db.user.findUnique({
       where: { id: userId },
       include: {
-        gameProfile: true
+        gameProfiles: true
       }
     });
 
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
         email: user.email,
         name: user.name,
         avatar: user.avatar,
-        gameProfile: user.gameProfile
+        gameProfile: user.gameProfiles?.[0] || null
       }
     });
   } catch (error) {

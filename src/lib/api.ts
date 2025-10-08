@@ -6,6 +6,7 @@ const api = axios.create({
     ? (process.env.NEXT_PUBLIC_API_URL || 'https://your-domain.com') 
     : 'http://localhost:3000', // Next.js development server
   withCredentials: true,
+  timeout: 10000, // 10 seconds timeout
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -28,7 +29,12 @@ api.interceptors.response.use(
   (error) => {
     // Don't log 401 errors as they're expected for unauthenticated users
     if (error.response?.status !== 401) {
-      console.error('API Error:', error.response?.data || error.message)
+      // Handle network errors separately
+      if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') {
+        console.log('Network error - API might be unavailable')
+      } else {
+        console.error('API Error:', error.response?.data || error.message)
+      }
     }
     return Promise.reject(error)
   }

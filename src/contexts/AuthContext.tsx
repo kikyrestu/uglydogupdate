@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     } catch (error) {
       // User is not authenticated, this is normal behavior
-      console.log('User not authenticated')
+      console.log('User not authenticated or network unavailable')
       setUser(null)
     } finally {
       setLoading(false)
