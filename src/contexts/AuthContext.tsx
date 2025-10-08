@@ -6,6 +6,7 @@ import api from '@/lib/api'
 interface User {
   id: string
   email: string
+  username?: string
   name?: string
   avatar?: string
 }
@@ -31,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkUser = async () => {
     try {
-      const res = await api.get('/auth/users')
+      const res = await api.get('/api/auth/users')
       if (res.data.data) {
         setUser(res.data.data)
       }
@@ -46,7 +47,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
-      const res = await api.post('/auth/login', {
+      const res = await api.post('/api/auth/login', {
         email,
         password
       })
@@ -68,7 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      await api.post('/auth/logout')
+      await api.post('/api/auth/logout')
       setUser(null)
       localStorage.removeItem('auth_token')
       router.push('/login')
