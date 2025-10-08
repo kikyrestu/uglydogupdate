@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,16 +14,61 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
+  avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relations
+  gameProfiles GameProfile[]
+  gameSessions GameSession[]
+  leaderboards Leaderboard[]
 }
 
-model Post {
+model GameProfile {
   id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
+  userId    String
+  highestScore Int    @default(0)
+  totalGames Int    @default(0)
+  totalTime  Int    @default(0) // in seconds
+  level      Int    @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gameSessions GameSession[]
+}
+
+model GameSession {
+  id          String   @id @default(cuid())
+  userId      String
+  profileId   String?
+  score       Int
+  misses      Int
+  accuracy    Float    // percentage
+  gameTime    Int      // in seconds
+  level       Int
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  // Relations
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  profile GameProfile? @relation(fields: [profileId], references: [id], onDelete: SetNull)
+}
+
+model Leaderboard {
+  id          String   @id @default(cuid())
+  userId      String
+  userName    String
+  userAvatar  String?
+  score       Int
+  rank        Int
+  period      String   // "daily", "weekly", "all-time"
+  date        String   // YYYY-MM-DD for daily, YYYY-WW for weekly
+  createdAt   DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, period, date])
 }
