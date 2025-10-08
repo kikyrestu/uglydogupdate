@@ -285,6 +285,13 @@ export default function UglyDogGame() {
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-green-400 mb-2">UglyDog Clicker</h1>
         <p className="text-yellow-400">Click the UglyDog before it disappears!</p>
+        {isAuthenticated && user && (
+          <div className="mt-4">
+            <span className="text-white text-lg">
+              Welcome, <span className="font-bold text-green-400">{user.username || user.name}</span>! 🎮
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
