@@ -143,6 +143,23 @@ export default function UglyDogGame() {
     }
   }, [dogClickable, gameState.gameActive, gameState.score, gameState.level, clearAllTimers, spawnUglyDog])
 
+  // Stop game
+  const stopGame = useCallback(() => {
+    clearAllTimers()
+    setGameState(prev => ({
+      ...prev,
+      gameActive: false,
+      score: 0,
+      misses: 0,
+      health: 3,
+      level: 1
+    }))
+    setDogVisible(false)
+    setDogClickable(false)
+    setLevelUpBreak(false)
+    setBreakCountdown(0)
+  }, [clearAllTimers])
+
   // Handle miss
   const handleMiss = useCallback(() => {
     if (!gameState.gameActive) return
@@ -205,23 +222,6 @@ export default function UglyDogGame() {
       })
     }, 1000)
   }, [clearAllTimers, gameState.gameActive, spawnUglyDog])
-
-  // Stop game
-  const stopGame = useCallback(() => {
-    clearAllTimers()
-    setGameState(prev => ({
-      ...prev,
-      gameActive: false,
-      score: 0,
-      misses: 0,
-      health: 3,
-      level: 1
-    }))
-    setDogVisible(false)
-    setDogClickable(false)
-    setLevelUpBreak(false)
-    setBreakCountdown(0)
-  }, [clearAllTimers])
 
   // Start game
   const startGame = useCallback(() => {
