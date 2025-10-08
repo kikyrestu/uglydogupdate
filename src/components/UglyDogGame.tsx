@@ -73,7 +73,8 @@ export default function UglyDogGame() {
       const res = await api.get('/api/leaderboard/dev-daily')
       setLeaderboard(res.data.data || [])
     } catch (error) {
-      console.error('Failed to fetch leaderboard:', error)
+      console.log('Leaderboard not available yet')
+      setLeaderboard([])
     }
   }, [])
 
@@ -257,7 +258,7 @@ export default function UglyDogGame() {
       await api.post('/auth/game/saved', { session_score: score })
       fetchLeaderboard() // Refresh leaderboard
     } catch (error) {
-      console.error('Failed to save score:', error)
+      console.log('Could not save score to backend')
     }
   }, [isAuthenticated, fetchLeaderboard])
 

@@ -14,21 +14,16 @@ export async function GET() {
       orderBy: {
         score: 'desc'
       },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            avatar: true
-          }
-        }
-      },
       take: 10 // Limit to top 10 for dev
     });
 
     // Add rankings
     const leaderboardWithRank = leaderboard.map((entry, index) => ({
-      ...entry,
+      id: entry.id,
+      userId: entry.userId,
+      userName: entry.userName,
+      userAvatar: entry.userAvatar,
+      score: entry.score,
       rank: index + 1
     }));
 

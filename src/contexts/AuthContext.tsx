@@ -32,9 +32,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const checkUser = async () => {
     try {
       const res = await api.get('/auth/users')
-      setUser(res.data.data)
+      if (res.data.data) {
+        setUser(res.data.data)
+      }
     } catch (error) {
-      console.error('User not authenticated:', error)
+      // User is not authenticated, this is normal behavior
+      console.log('User not authenticated')
       setUser(null)
     } finally {
       setLoading(false)
