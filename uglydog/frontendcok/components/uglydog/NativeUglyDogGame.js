@@ -1927,13 +1927,57 @@ export default function NativeUglyDogGame() {
             padding: 4px 8px;
           }
           
+          /* Mobile-optimized sizing */
+          .health-hearts {
+            gap: 3px;
+          }
+          
+          .heart-icon {
+            width: 18px;
+            height: 18px;
+          }
+          
+          .score-display {
+            font-size: 14px;
+          }
+          
+          .level-text {
+            font-size: 12px;
+            min-width: 25px;
+          }
+          
           .progress-bar {
             width: 50px;
             height: 6px;
           }
           
+          .miss-text {
+            font-size: 11px;
+          }
+          
+          .miss-bars {
+            gap: 2px;
+          }
+          
+          .miss-bar {
+            width: 8px;
+            height: 14px;
+            border-radius: 2px;
+          }
+          
           .game-canvas {
             height: 280px;
+          }
+          
+          .uglydog img {
+            width: 60px !important;
+            height: 60px !important;
+          }
+          
+          .countdown-circle {
+            width: 70px !important;
+            height: 70px !important;
+            font-size: 16px !important;
           }
           
           .how-to-play-grid {
@@ -1952,6 +1996,66 @@ export default function NativeUglyDogGame() {
           .leaderboard-item {
             padding: 6px 4px;
             gap: 6px;
+          }
+        }
+        
+        /* Small mobile optimization */
+        @media (max-width: 480px) {
+          .gaming-hud {
+            padding: 6px 12px;
+            gap: 6px;
+          }
+          
+          .hud-section {
+            padding: 3px 6px;
+            min-width: 70px;
+          }
+          
+          .health-hearts {
+            gap: 2px;
+          }
+          
+          .heart-icon {
+            width: 16px;
+            height: 16px;
+          }
+          
+          .score-display {
+            font-size: 12px;
+          }
+          
+          .level-text {
+            font-size: 11px;
+            min-width: 20px;
+          }
+          
+          .progress-bar {
+            width: 40px;
+            height: 5px;
+          }
+          
+          .miss-text {
+            font-size: 10px;
+          }
+          
+          .miss-bar {
+            width: 6px;
+            height: 12px;
+          }
+          
+          .game-canvas {
+            height: 240px;
+          }
+          
+          .uglydog img {
+            width: 50px !important;
+            height: 50px !important;
+          }
+          
+          .countdown-circle {
+            width: 60px !important;
+            height: 60px !important;
+            font-size: 14px !important;
           }
         }
         
