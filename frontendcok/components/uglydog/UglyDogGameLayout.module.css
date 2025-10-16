@@ -477,14 +477,47 @@
 }
 
 /* Responsive tweaks for HUD, leaderboard, canvas */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hud {
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 16px;
+    padding: 12px 28px;
+    justify-content: center;
+    clip-path: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+    max-width: 98vw;
+  }
+  .hud::before {
+    clip-path: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+  }
+  .hud-section {
+    flex: 0 0 auto;
+    min-width: 100px;
+    justify-content: center;
+  }
+  .progress-bar {
+    width: 65px;
+  }
+  .game-canvas {
+    height: 320px;
+  }
+  .leaderboard-panel {
+    min-width: unset;
+    max-height: 280px;
+    padding: 12px 6px 10px 6px;
+  }
+}
+
+@media (max-width: 968px) {
+  .hud {
+    flex-wrap: wrap;
+    gap: 12px;
     padding: 10px 20px;
     justify-content: center;
-    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    clip-path: polygon(15px 0%, 100% 0%, calc(100% - 15px) 100%, 0% 100%);
     max-width: 98vw;
+  }
+  .hud::before {
+    clip-path: polygon(15px 0%, 100% 0%, calc(100% - 15px) 100%, 0% 100%);
   }
   .hud-section {
     flex: 0 0 auto;
@@ -492,30 +525,75 @@
     justify-content: center;
   }
   .progress-bar {
-    width: 50px;
+    width: 60px;
   }
   .game-canvas {
-    height: 280px;
+    height: 300px;
   }
   .leaderboard-panel {
     min-width: unset;
-    max-height: 220px;
+    max-height: 240px;
     padding: 10px 4px 8px 4px;
   }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 768px) {
   .hud {
     flex-direction: column;
     gap: 8px;
-    padding: 8px 4px;
+    padding: 8px 12px;
     max-width: 98vw;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  }
+  .hud::before {
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
   }
   .hud-section {
-    min-width: 44px;
+    min-width: 80px;
     width: 100%;
+    justify-content: space-between;
+    padding: 4px 8px;
   }
   .health-hearts {
+    gap: 5px;
+  }
+  .heart-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .progress-bar {
+    width: 50px;
+    height: 6px;
+  }
+  .game-canvas {
+    height: 280px;
+    min-height: 240px;
+  }
+  .leaderboard-panel {
+    min-width: unset;
+    max-height: 200px;
+    padding: 8px 4px 6px 4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hud {
+    flex-direction: column;
     gap: 6px;
+    padding: 6px 8px;
+    max-width: 98vw;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .hud::before {
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .hud-section {
+    min-width: unset;
+    width: 100%;
+    padding: 3px 6px;
+  }
+  .health-hearts {
+    gap: 4px;
   }
   .heart-icon {
     width: 18px;
@@ -523,9 +601,100 @@
   }
   .progress-bar {
     width: 40px;
+    height: 5px;
+  }
+  .game-canvas {
+    height: 240px;
+    min-height: 200px;
+  }
+  .leaderboard-panel {
+    min-width: unset;
+    max-height: 180px;
+    padding: 6px 3px 4px 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hud {
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px 4px;
+    max-width: 98vw;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .hud::before {
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .hud-section {
+    width: 100%;
+    padding: 2px 4px;
+  }
+  .health-hearts {
+    gap: 3px;
+  }
+  .heart-icon {
+    width: 16px;
+    height: 16px;
+  }
+  .progress-bar {
+    width: 35px;
+    height: 4px;
+  }
+  .game-canvas {
+    height: 220px;
+    min-height: 180px;
+  }
+  .leaderboard-panel {
+    min-width: unset;
+    max-height: 160px;
+    padding: 4px 2px 3px 2px;
+  }
+}
+
+/* Extra Small Mobile (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .hud {
+    gap: 3px;
+    padding: 3px 2px;
+  }
+  .heart-icon {
+    width: 14px;
+    height: 14px;
+  }
+  .progress-bar {
+    width: 30px;
+    height: 3px;
+  }
+  .game-canvas {
+    height: 200px;
+    min-height: 160px;
+  }
+  .leaderboard-panel {
+    max-height: 140px;
+    padding: 3px 1px 2px 1px;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hud {
+    flex-direction: row;
+    gap: 8px;
+    padding: 6px 12px;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  }
+  .hud::before {
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  }
+  .hud-section {
+    min-width: 60px;
+    padding: 2px 6px;
   }
   .game-canvas {
     height: 180px;
-    min-width: 180px;
+    min-height: 160px;
+  }
+  .leaderboard-panel {
+    max-height: 150px;
   }
 }

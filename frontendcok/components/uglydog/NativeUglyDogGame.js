@@ -1815,16 +1815,58 @@ export default function NativeUglyDogGame() {
         }
         
         /* RESPONSIVE DESIGN - HEXAGONAL OPTIMIZATION */
-        @media (max-width: 968px) {
+        @media (max-width: 1024px) {
           .game-main-grid {
             grid-template-columns: 1fr;
+            gap: 16px;
+            padding: 16px;
+          }
+          
+          .gaming-hud {
+            padding: 14px 32px;
+            gap: 18px;
+            clip-path: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+          }
+          
+          .gaming-hud::before {
+            clip-path: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+          }
+          
+          .gaming-hud::after {
+            clip-path: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+          }
+          
+          .progress-bar {
+            width: 65px;
+          }
+          
+          .game-canvas {
+            height: 320px;
+          }
+          
+          .how-to-play-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+          }
+          
+          .leaderboard-area {
+            order: 2;
+          }
+          
+          .how-to-play-section {
+            order: 3;
+          }
+        }
+        
+        @media (max-width: 968px) {
+          .game-main-grid {
             gap: 12px;
             padding: 12px;
           }
           
           .gaming-hud {
-            padding: 12px 30px;
-            gap: 16px;
+            padding: 12px 24px;
+            gap: 14px;
             clip-path: polygon(15px 0%, 100% 0%, calc(100% - 15px) 100%, 0% 100%);
           }
           
@@ -1849,24 +1891,15 @@ export default function NativeUglyDogGame() {
           }
           
           .how-to-play-grid {
-            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-          }
-          
-          .leaderboard-area {
-            order: 2;
-          }
-          
-          .how-to-play-section {
-            order: 3;
           }
         }
         
         @media (max-width: 768px) {
           .gaming-hud {
             flex-wrap: wrap;
-            gap: 10px;
-            padding: 10px 20px;
+            gap: 8px;
+            padding: 8px 16px;
             justify-content: center;
             clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
           }
@@ -1885,12 +1918,14 @@ export default function NativeUglyDogGame() {
           
           .hud-section {
             flex: 0 0 auto;
-            min-width: 90px;
+            min-width: 80px;
             justify-content: center;
+            padding: 4px 8px;
           }
           
           .progress-bar {
             width: 50px;
+            height: 6px;
           }
           
           .game-canvas {
@@ -1899,42 +1934,109 @@ export default function NativeUglyDogGame() {
           
           .how-to-play-grid {
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 8px;
           }
           
           .instruction-card {
-            padding: 12px;
+            padding: 10px 8px;
           }
           
           .leaderboard-content {
-            padding: 10px;
+            padding: 8px 6px;
           }
           
           .leaderboard-item {
-            padding: 6px;
-            gap: 8px;
+            padding: 6px 4px;
+            gap: 6px;
           }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
           .game-main-grid {
-            padding: 10px;
-            gap: 10px;
+            padding: 8px;
+            gap: 8px;
           }
           
           .gaming-hud {
             flex-direction: column;
-            gap: 8px;
-            padding: 8px;
+            gap: 6px;
+            padding: 6px 4px;
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+          }
+          
+          .gaming-hud::before {
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+          }
+          
+          .gaming-hud::after {
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
           }
           
           .hud-section {
             justify-content: space-between;
             width: 100%;
+            min-width: unset;
+            padding: 2px 4px;
           }
           
           .health-hearts {
+            gap: 4px;
+          }
+          
+          .heart-icon {
+            width: 20px;
+            height: 20px;
+          }
+          
+          .progress-bar {
+            width: 40px;
+            height: 6px;
+          }
+          
+          .game-canvas {
+            height: 240px;
+            min-height: 200px;
+          }
+          
+          .uglydog img {
+            width: 55px !important;
+            height: 55px !important;
+          }
+          
+          .leaderboard-header {
+            padding: 10px 8px;
+          }
+          
+          .leaderboard-content {
+            padding: 6px 4px;
+          }
+          
+          .how-to-play-section {
+            padding: 12px 8px;
+          }
+          
+          .instruction-card {
+            padding: 8px 6px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .game-main-grid {
+            padding: 6px;
             gap: 6px;
+          }
+          
+          .gaming-hud {
+            gap: 4px;
+            padding: 4px 2px;
+          }
+          
+          .hud-section {
+            padding: 2px 2px;
+          }
+          
+          .health-hearts {
+            gap: 3px;
           }
           
           .heart-icon {
@@ -1943,28 +2045,34 @@ export default function NativeUglyDogGame() {
           }
           
           .progress-bar {
-            width: 40px;
+            width: 35px;
+            height: 5px;
           }
           
           .game-canvas {
-            height: 250px;
+            height: 220px;
+            min-height: 180px;
           }
           
           .uglydog img {
-            width: 45px !important;
-            height: 45px !important;
+            width: 50px !important;
+            height: 50px !important;
           }
           
           .leaderboard-header {
-            padding: 12px;
+            padding: 8px 6px;
           }
           
           .leaderboard-content {
-            padding: 8px;
+            padding: 4px 2px;
           }
           
           .how-to-play-section {
-            padding: 15px;
+            padding: 10px 6px;
+          }
+          
+          .instruction-card {
+            padding: 6px 4px;
           }
         }
         
@@ -1984,7 +2092,45 @@ export default function NativeUglyDogGame() {
           }
           
           .game-canvas {
+            height: 180px;
+            min-height: 160px;
+          }
+          
+          .gaming-hud {
+            padding: 6px 12px;
+            gap: 12px;
+          }
+          
+          .hud-section {
+            min-width: 60px;
+          }
+        }
+        
+        /* Extra Small Mobile (iPhone SE, etc.) */
+        @media (max-width: 375px) {
+          .game-canvas {
             height: 200px;
+            min-height: 160px;
+          }
+          
+          .uglydog img {
+            width: 45px !important;
+            height: 45px !important;
+          }
+          
+          .heart-icon {
+            width: 16px;
+            height: 16px;
+          }
+          
+          .progress-bar {
+            width: 30px;
+            height: 4px;
+          }
+          
+          .gaming-hud {
+            padding: 4px 2px;
+            gap: 3px;
           }
         }
       `}</style>
@@ -2100,11 +2246,12 @@ export default function NativeUglyDogGame() {
                       src="/assets/images/uglydog-original.png" 
                       alt="UglyDog"
                       style={{
-                        width: '60px',
-                        height: '60px',
+                        width: '70px',
+                        height: '70px',
                         objectFit: 'contain',
                         filter: 'drop-shadow(0 0 8px rgba(134, 255, 0, 0.5))',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        cursor: dogClickable ? 'pointer' : 'not-allowed'
                       }}
                     />
                     <div style={{
