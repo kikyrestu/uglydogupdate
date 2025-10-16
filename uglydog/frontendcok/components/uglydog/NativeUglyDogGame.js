@@ -66,6 +66,32 @@ export default function NativeUglyDogGame() {
     showMiniGame: false
   })
 
+  // NEW: Orientation detection effect
+  useEffect(() => {
+    const checkOrientation = () => {
+      const isMobile = window.innerWidth <= 768
+      const isPortrait = window.innerHeight > window.innerWidth
+      
+      if (isMobile && isPortrait) {
+        setShowGameRotationPrompt(true)
+      } else {
+        setShowGameRotationPrompt(false)
+      }
+    }
+
+    // Initial check
+    checkOrientation()
+
+    // Listen for orientation changes and resize
+    window.addEventListener('resize', checkOrientation)
+    window.addEventListener('orientationchange', checkOrientation)
+
+    return () => {
+      window.removeEventListener('resize', checkOrientation)
+      window.removeEventListener('orientationchange', checkOrientation)
+    }
+  }, [])
+
   // --- Timer/interval refs for bulletproof cleanup ---
   const autoMissTimerRef = React.useRef(null)
   const countdownIntervalRef = React.useRef(null)
@@ -2937,7 +2963,7 @@ export default function NativeUglyDogGame() {
 
       <div className="native-uglydog-game">
         {/* Main Game Layout - Grid System */}
-        <div className="game-main-grid">
+        <div className="game-main-grid actual-game-content">
           {/* Left Side - Game Area */}
           <div className="game-area">
             {/* NEW: Mini Interactive Preview */}
@@ -2949,6 +2975,7 @@ export default function NativeUglyDogGame() {
                       <div className="game-rotation-icon">🎮</div>
                       <div className="game-rotation-text">Try Mini Preview</div>
                       <div className="game-rotation-subtitle">Tap to experience the game</div>
+                      <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
                       <button 
                         className="mini-preview-start-btn"
                         onClick={startMiniGame}
