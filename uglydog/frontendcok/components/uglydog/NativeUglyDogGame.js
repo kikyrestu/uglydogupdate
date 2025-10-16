@@ -950,6 +950,9 @@ export default function NativeUglyDogGame() {
           border-radius: 20px;
           border: 2px solid rgba(255, 255, 255, 0.0784313725);
           overflow: hidden;
+          /* IMPORTANT: Make this container relative for absolute positioning */
+          position: relative;
+          min-height: 600px;
         }
         
         /* MAIN GRID LAYOUT */
@@ -2753,6 +2756,9 @@ export default function NativeUglyDogGame() {
           border: 2px solid rgba(255, 255, 255, 0.1);
           /* Default: hidden for desktop, will be shown by CSS media queries */
           display: none;
+          /* IMPORTANT: Only cover game area, not entire page */
+          width: 100%;
+          height: 100%;
         }
         
         .game-rotation-content {
