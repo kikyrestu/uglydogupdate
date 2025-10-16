@@ -1,0 +1,137 @@
+.uglydog-layout-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #18181b 0%, #23272f 100%);
+  color: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.header {
+  padding: 32px 0 8px 0;
+  text-align: center;
+  background: #18181b;
+  border-bottom: 1px solid #23272f;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 1px;
+  color: #86FF00;
+}
+
+.tagline {
+  display: block;
+  font-size: 1rem;
+  color: #fbbf24;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  flex: 1 1 auto;
+  padding: 32px 10vw 32px 10vw;
+  align-items: flex-start;
+}
+
+.game-area {
+  background: #23272f;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+  padding: 32px;
+  min-height: 480px;
+  position: relative;
+}
+
+.game-canvas {
+  background: #18181b;
+  border-radius: 12px;
+  min-height: 340px;
+  min-width: 320px;
+  position: relative;
+  box-shadow: 0 2px 16px rgba(134,255,0,0.08);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar {
+  background: #18181b;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  padding: 24px 18px;
+  min-width: 260px;
+}
+
+.leaderboard {
+  margin-bottom: 32px;
+}
+
+.leaderboard h3 {
+  font-size: 1.2rem;
+  color: #86FF00;
+  margin-bottom: 12px;
+}
+
+.player-stats {
+  font-size: 1rem;
+  color: #fbbf24;
+}
+
+.footer {
+  text-align: center;
+  padding: 18px 0 12px 0;
+  background: #23272f;
+  color: #aaa;
+  font-size: 0.95rem;
+  border-top: 1px solid #23272f;
+}
+
+.leaderboard-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #222;
+  font-size: 16px;
+  padding: 2px 0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.leaderboard-row--top {
+  font-weight: 700;
+  color: #8b5cf6;
+  font-size: 18px;
+}
+
+.leaderboard-row--me {
+  background: #f3f4f6;
+  border: 1.5px solid #fbbf24;
+  box-shadow: 0 1px 6px rgba(251,191,36,0.08);
+  padding: 6px 10px;
+}
+
+.trophy-icon {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  margin-right: 4px;
+  display: inline-block;
+}
+.trophy-gold {
+  fill: #FFD700;
+}
+.trophy-silver {
+  fill: #C0C0C0;
+}
+.trophy-bronze {
+  fill: #CD7F32;
+}
