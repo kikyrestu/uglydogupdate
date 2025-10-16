@@ -3073,6 +3073,7 @@ export default function NativeUglyDogGame() {
               </div>
             </div>
           </div>
+            </div> {/* Closing actual-game-content */}
 
           {/* Right Side - Leaderboard */}
           <div className="leaderboard-area">
