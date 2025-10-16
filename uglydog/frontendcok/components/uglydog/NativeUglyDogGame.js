@@ -2716,14 +2716,15 @@ export default function NativeUglyDogGame() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: linear-gradient(135deg, rgba(26, 34, 44, 0.95) 0%, rgba(30, 40, 53, 0.95) 100%);
-          display: none;
+          background: linear-gradient(135deg, rgba(26, 34, 44, 0.98) 0%, rgba(30, 40, 53, 0.98) 100%);
+          display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 100;
+          z-index: 9999 !important;
           border-radius: 16px;
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
+          border: 2px solid rgba(255, 255, 255, 0.1);
         }
         
         .game-rotation-content {
@@ -2731,37 +2732,44 @@ export default function NativeUglyDogGame() {
           color: #ffffff;
           padding: 30px;
           border-radius: 16px;
-          background: rgba(0, 0, 0, 0.4);
-          border: 2px solid rgba(255, 255, 255, 0.15);
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-          max-width: 280px;
+          background: rgba(0, 0, 0, 0.6);
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+          max-width: 320px;
           width: 90%;
+          min-height: 200px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
         
         .game-rotation-icon {
-          font-size: 40px;
-          margin-bottom: 12px;
+          font-size: 48px;
+          margin-bottom: 16px;
           animation: pulse 2s infinite;
+          color: #86FF00;
+          text-shadow: 0 0 16px rgba(134, 255, 0, 0.8);
         }
         
         .game-rotation-text {
-          font-size: 18px;
+          font-size: 20px;
           font-weight: bold;
-          margin-bottom: 6px;
+          margin-bottom: 8px;
           color: #86FF00;
           text-shadow: 0 0 16px rgba(134, 255, 0, 0.8);
         }
         
         .game-rotation-subtitle {
-          font-size: 13px;
-          opacity: 0.8;
+          font-size: 14px;
+          opacity: 0.9;
           color: #ffffff;
+          margin-bottom: 16px;
         }
         
         /* Show rotation prompt in portrait mode */
         @media (max-width: 768px) and (orientation: portrait) {
           .game-rotation-prompt {
-            display: flex;
+            display: flex !important;
           }
           
           /* Hide actual game content in portrait */
@@ -2773,7 +2781,7 @@ export default function NativeUglyDogGame() {
         /* Hide rotation prompt in landscape */
         @media (max-width: 768px) and (orientation: landscape) {
           .game-rotation-prompt {
-            display: none;
+            display: none !important;
           }
           
           .actual-game-content {
@@ -2783,57 +2791,62 @@ export default function NativeUglyDogGame() {
         
         /* NEW: Mini Interactive Preview Styles */
         .mini-preview-start-btn {
-          background: linear-gradient(135deg, #86FF00, #00FFFF);
-          border: none;
-          color: #000;
-          padding: 10px 20px;
-          border-radius: 25px;
-          font-weight: bold;
-          cursor: pointer;
-          margin-top: 15px;
-          transition: all 0.3s ease;
-          box-shadow: 0 4px 12px rgba(134, 255, 0, 0.3);
+          background: linear-gradient(135deg, #86FF00, #00FFFF) !important;
+          border: none !important;
+          color: #000000 !important;
+          padding: 12px 24px !important;
+          border-radius: 25px !important;
+          font-weight: bold !important;
+          cursor: pointer !important;
+          margin-top: 20px !important;
+          transition: all 0.3s ease !important;
+          box-shadow: 0 4px 12px rgba(134, 255, 0, 0.5) !important;
+          font-size: 14px !important;
+          text-transform: uppercase !important;
+          letter-spacing: 1px !important;
         }
         
         .mini-preview-start-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 16px rgba(134, 255, 0, 0.4);
+          transform: translateY(-2px) !important;
+          box-shadow: 0 6px 16px rgba(134, 255, 0, 0.7) !important;
         }
         
         .mini-preview-container {
-          width: 100%;
-          height: 160px;
-          background: rgba(0, 0, 0, 0.3);
-          border-radius: 12px;
-          position: relative;
-          margin: 15px 0;
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          overflow: hidden;
+          width: 100% !important;
+          height: 180px !important;
+          background: rgba(0, 0, 0, 0.5) !important;
+          border-radius: 12px !important;
+          position: relative !important;
+          margin: 20px 0 !important;
+          border: 2px solid rgba(134, 255, 0, 0.3) !important;
+          overflow: hidden !important;
+          box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         }
         
         .mini-preview-score {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          color: #86FF00;
-          font-weight: bold;
-          font-size: 14px;
-          z-index: 10;
-          background: rgba(0, 0, 0, 0.7);
-          padding: 4px 8px;
-          border-radius: 15px;
+          position: absolute !important;
+          top: 10px !important;
+          left: 10px !important;
+          color: #86FF00 !important;
+          font-weight: bold !important;
+          font-size: 16px !important;
+          z-index: 10 !important;
+          background: rgba(0, 0, 0, 0.8) !important;
+          padding: 6px 12px !important;
+          border-radius: 20px !important;
+          border: 1px solid rgba(134, 255, 0, 0.5) !important;
         }
         
         .mini-uglydog {
-          z-index: 5;
+          z-index: 5 !important;
         }
         
         .mini-uglydog:hover {
-          transform: scale(1.1);
+          transform: scale(1.2) !important;
         }
         
         .mini-uglydog:active {
-          transform: scale(0.95);
+          transform: scale(0.9) !important;
         }
         
         /* Universal Mobile Responsive Styles */
@@ -2954,22 +2967,13 @@ export default function NativeUglyDogGame() {
                             top: `${miniGameState.dogPosition.y}%`,
                             position: 'absolute',
                             cursor: 'pointer',
-                            transition: 'all 0.3s ease'
+                            transition: 'all 0.3s ease',
+                            fontSize: '40px',
+                            userSelect: 'none'
                           }}
                           onClick={handleMiniDogClick}
                         >
-                          <img 
-                            src="/api/placeholder/40/40" 
-                            alt="Mini UglyDog"
-                            style={{
-                              width: '40px',
-                              height: '40px',
-                              borderRadius: '50%',
-                              background: '#86FF00',
-                              border: '2px solid #ffffff',
-                              boxShadow: '0 4px 12px rgba(134, 255, 0, 0.5)'
-                            }}
-                          />
+                          🐶
                         </div>
                       </div>
                       <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
