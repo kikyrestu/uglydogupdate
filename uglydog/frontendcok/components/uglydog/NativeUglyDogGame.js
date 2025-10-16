@@ -56,8 +56,8 @@ export default function NativeUglyDogGame() {
   const [showLeaderboardDropdown, setShowLeaderboardDropdown] = useState(false)
   const [showHowToPlayDropdown, setShowHowToPlayDropdown] = useState(false)
   
-  // NEW: Game-only rotation state
-  const [showGameRotationPrompt, setShowGameRotationPrompt] = useState(false)
+  // NEW: Game-only rotation state - REMOVED, using CSS-only approach
+  // const [showGameRotationPrompt, setShowGameRotationPrompt] = useState(false)
   
   // NEW: Mini Interactive Preview state
   const [miniGameState, setMiniGameState] = useState({
@@ -66,31 +66,31 @@ export default function NativeUglyDogGame() {
     showMiniGame: false
   })
 
-  // NEW: Orientation detection effect
-  useEffect(() => {
-    const checkOrientation = () => {
-      const isMobile = window.innerWidth <= 768
-      const isPortrait = window.innerHeight > window.innerWidth
+  // REMOVED: Orientation detection effect - using CSS media queries instead
+  // useEffect(() => {
+  //   const checkOrientation = () => {
+  //     const isMobile = window.innerWidth <= 768
+  //     const isPortrait = window.innerHeight > window.innerWidth
       
-      if (isMobile && isPortrait) {
-        setShowGameRotationPrompt(true)
-      } else {
-        setShowGameRotationPrompt(false)
-      }
-    }
+  //     if (isMobile && isPortrait) {
+  //       setShowGameRotationPrompt(true)
+  //     } else {
+  //       setShowGameRotationPrompt(false)
+  //     }
+  //   }
 
-    // Initial check
-    checkOrientation()
+  //   // Initial check
+  //   checkOrientation()
 
-    // Listen for orientation changes and resize
-    window.addEventListener('resize', checkOrientation)
-    window.addEventListener('orientationchange', checkOrientation)
+  //   // Listen for orientation changes and resize
+  //   window.addEventListener('resize', checkOrientation)
+  //   window.addEventListener('orientationchange', checkOrientation)
 
-    return () => {
-      window.removeEventListener('resize', checkOrientation)
-      window.removeEventListener('orientationchange', checkOrientation)
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener('resize', checkOrientation)
+  //     window.removeEventListener('orientationchange', checkOrientation)
+  //   }
+  // }, [])
 
   // --- Timer/interval refs for bulletproof cleanup ---
   const autoMissTimerRef = React.useRef(null)
@@ -2751,6 +2751,8 @@ export default function NativeUglyDogGame() {
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
           border: 2px solid rgba(255, 255, 255, 0.1);
+          /* Default: hidden for desktop, will be shown by CSS media queries */
+          display: none;
         }
         
         .game-rotation-content {
@@ -2966,30 +2968,29 @@ export default function NativeUglyDogGame() {
         <div className="game-main-grid actual-game-content">
           {/* Left Side - Game Area */}
           <div className="game-area">
-            {/* NEW: Mini Interactive Preview */}
-            {showGameRotationPrompt && (
-              <div className="game-rotation-prompt">
-                <div className="game-rotation-content">
-                  {!miniGameState.showMiniGame ? (
-                    <>
-                      <div className="game-rotation-icon">🎮</div>
-                      <div className="game-rotation-text">Try Mini Preview</div>
-                      <div className="game-rotation-subtitle">Tap to experience the game</div>
-                      <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
-                      <button 
-                        className="mini-preview-start-btn"
-                        onClick={startMiniGame}
-                      >
-                        Start Mini Game
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <div className="mini-preview-container">
-                        <div className="mini-preview-score">Score: {miniGameState.score}</div>
-                        <div 
-                          className="mini-uglydog"
-                          style={{
+            {/* NEW: Mini Interactive Preview - ALWAYS VISIBLE, CSS CONTROLS DISPLAY */}
+            <div className="game-rotation-prompt">
+              <div className="game-rotation-content">
+                {!miniGameState.showMiniGame ? (
+                  <>
+                    <div className="game-rotation-icon">🎮</div>
+                    <div className="game-rotation-text">Try Mini Preview</div>
+                    <div className="game-rotation-subtitle">Tap to experience the game</div>
+                    <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
+                    <button 
+                      className="mini-preview-start-btn"
+                      onClick={startMiniGame}
+                    >
+                      Start Mini Game
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="mini-preview-container">
+                      <div className="mini-preview-score">Score: {miniGameState.score}</div>
+                      <div 
+                        className="mini-uglydog"
+                        style={{
                             left: `${miniGameState.dogPosition.x}%`,
                             top: `${miniGameState.dogPosition.y}%`,
                             position: 'absolute',
@@ -3008,7 +3009,6 @@ export default function NativeUglyDogGame() {
                   )}
                 </div>
               </div>
-            )}
             
             {/* Actual Game Content */}
             <div className="actual-game-content">
