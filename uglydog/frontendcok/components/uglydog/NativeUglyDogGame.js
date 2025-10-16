@@ -2964,56 +2964,54 @@ export default function NativeUglyDogGame() {
       `}</style>
 
       <div className="native-uglydog-game">
+        {/* Game Rotation Prompt - OVERLAY (CSS controls visibility) */}
+        <div className="game-rotation-prompt">
+          <div className="game-rotation-content">
+            {!miniGameState.showMiniGame ? (
+              <>
+                <div className="game-rotation-icon">🎮</div>
+                <div className="game-rotation-text">Try Mini Preview</div>
+                <div className="game-rotation-subtitle">Tap to experience the game</div>
+                <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
+                <button 
+                  className="mini-preview-start-btn"
+                  onClick={startMiniGame}
+                >
+                  Start Mini Game
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="mini-preview-container">
+                  <div className="mini-preview-score">Score: {miniGameState.score}</div>
+                  <div 
+                    className="mini-uglydog"
+                    style={{
+                        left: `${miniGameState.dogPosition.x}%`,
+                        top: `${miniGameState.dogPosition.y}%`,
+                        position: 'absolute',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        fontSize: '40px',
+                        userSelect: 'none'
+                      }}
+                      onClick={handleMiniDogClick}
+                    >
+                      🐶
+                    </div>
+                  </div>
+                  <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
+                </>
+              )}
+            </div>
+          </div>
+        
         {/* Main Game Layout - Grid System */}
-        <div className="game-main-grid actual-game-content">
+        <div className="game-main-grid">
           {/* Left Side - Game Area */}
           <div className="game-area">
-            {/* NEW: Mini Interactive Preview - ALWAYS VISIBLE, CSS CONTROLS DISPLAY */}
-            <div className="game-rotation-prompt">
-              <div className="game-rotation-content">
-                {!miniGameState.showMiniGame ? (
-                  <>
-                    <div className="game-rotation-icon">🎮</div>
-                    <div className="game-rotation-text">Try Mini Preview</div>
-                    <div className="game-rotation-subtitle">Tap to experience the game</div>
-                    <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
-                    <button 
-                      className="mini-preview-start-btn"
-                      onClick={startMiniGame}
-                    >
-                      Start Mini Game
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <div className="mini-preview-container">
-                      <div className="mini-preview-score">Score: {miniGameState.score}</div>
-                      <div 
-                        className="mini-uglydog"
-                        style={{
-                            left: `${miniGameState.dogPosition.x}%`,
-                            top: `${miniGameState.dogPosition.y}%`,
-                            position: 'absolute',
-                            cursor: 'pointer',
-                            transition: 'all 0.3s ease',
-                            fontSize: '40px',
-                            userSelect: 'none'
-                          }}
-                          onClick={handleMiniDogClick}
-                        >
-                          🐶
-                        </div>
-                      </div>
-                      <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
-                    </>
-                  )}
-                </div>
-              </div>
-            
-            {/* Actual Game Content */}
-            <div className="actual-game-content">
-              {/* Gaming HUD - Horizontal Bar */}
-              <div className="gaming-hud">
+            {/* Gaming HUD - Horizontal Bar */}
+            <div className="gaming-hud">
               {/* Mobile Dropdown Buttons - Only visible on mobile */}
               <div className="mobile-dropdown-buttons">
                 <button 
@@ -3327,7 +3325,6 @@ export default function NativeUglyDogGame() {
               </div>
             </div>
           </div>
-            </div> {/* Closing actual-game-content */}
 
           {/* Right Side - Leaderboard */}
           <div className="leaderboard-area">
