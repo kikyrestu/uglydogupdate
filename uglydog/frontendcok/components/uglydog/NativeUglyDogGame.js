@@ -56,9 +56,8 @@ export default function NativeUglyDogGame() {
   const [showLeaderboardDropdown, setShowLeaderboardDropdown] = useState(false)
   const [showHowToPlayDropdown, setShowHowToPlayDropdown] = useState(false)
   
-  // NEW: Landscape detection state
-  const [isLandscape, setIsLandscape] = useState(true)
-  const [showRotationPrompt, setShowRotationPrompt] = useState(false)
+  // NEW: Game-only rotation state
+  const [showGameRotationPrompt, setShowGameRotationPrompt] = useState(false)
 
   // --- Timer/interval refs for bulletproof cleanup ---
   const autoMissTimerRef = React.useRef(null)
@@ -76,37 +75,6 @@ export default function NativeUglyDogGame() {
   useEffect(() => { dogClickableRef.current = dogClickable }, [dogClickable])
   useEffect(() => { levelUpBreakRef.current = levelUpBreak }, [levelUpBreak])
   useEffect(() => { currentDogIdRef.current = currentDogId }, [currentDogId])
-
-  // NEW: Landscape detection effect
-  useEffect(() => {
-    const checkOrientation = () => {
-      const width = window.innerWidth
-      const height = window.innerHeight
-      const isMobile = width <= 768
-      const currentlyLandscape = width > height
-      
-      setIsLandscape(currentlyLandscape)
-      
-      if (isMobile && !currentlyLandscape) {
-        setShowRotationPrompt(true)
-      } else {
-        setShowRotationPrompt(false)
-      }
-    }
-
-    // Initial check
-    checkOrientation()
-
-    // Add event listeners
-    window.addEventListener('resize', checkOrientation)
-    window.addEventListener('orientationchange', checkOrientation)
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', checkOrientation)
-      window.removeEventListener('orientationchange', checkOrientation)
-    }
-  }, [])
 
   // Get current level based on score
   const getCurrentLevel = useCallback(() => {
@@ -899,17 +867,6 @@ export default function NativeUglyDogGame() {
   return (
     <>
       {showMissAlert && <MissAlert />}
-      
-      {/* NEW: Rotation Prompt for Mobile */}
-      {showRotationPrompt && (
-        <div className="rotation-prompt">
-          <div className="rotation-content">
-            <div className="rotation-icon">📱</div>
-            <div className="rotation-text">Please rotate your device</div>
-            <div className="rotation-subtitle">For the best gaming experience</div>
-          </div>
-        </div>
-      )}
       
       <style jsx>{`
         /* SIMPLIFIED: Z-Index Hierarchy Management (No more traps!) */
@@ -2710,10 +2667,75 @@ export default function NativeUglyDogGame() {
           }
         }
         
-        /* NEW: Block game in portrait mode on mobile */
+        /* NEW: Game-Only Rotation Prompt Styles */
+        .game-rotation-prompt {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(26, 34, 44, 0.95) 0%, rgba(30, 40, 53, 0.95) 100%);
+          display: none;
+          align-items: center;
+          justify-content: center;
+          z-index: 100;
+          border-radius: 16px;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .game-rotation-content {
+          text-align: center;
+          color: #ffffff;
+          padding: 30px;
+          border-radius: 16px;
+          background: rgba(0, 0, 0, 0.4);
+          border: 2px solid rgba(255, 255, 255, 0.15);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+          max-width: 280px;
+          width: 90%;
+        }
+        
+        .game-rotation-icon {
+          font-size: 40px;
+          margin-bottom: 12px;
+          animation: pulse 2s infinite;
+        }
+        
+        .game-rotation-text {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 6px;
+          color: #86FF00;
+          text-shadow: 0 0 16px rgba(134, 255, 0, 0.8);
+        }
+        
+        .game-rotation-subtitle {
+          font-size: 13px;
+          opacity: 0.8;
+          color: #ffffff;
+        }
+        
+        /* Show rotation prompt in portrait mode */
         @media (max-width: 768px) and (orientation: portrait) {
-          .native-uglydog-game {
+          .game-rotation-prompt {
+            display: flex;
+          }
+          
+          /* Hide actual game content in portrait */
+          .actual-game-content {
             display: none;
+          }
+        }
+        
+        /* Hide rotation prompt in landscape */
+        @media (max-width: 768px) and (orientation: landscape) {
+          .game-rotation-prompt {
+            display: none;
+          }
+          
+          .actual-game-content {
+            display: block;
           }
         }
       `}</style>
@@ -2723,8 +2745,21 @@ export default function NativeUglyDogGame() {
         <div className="game-main-grid">
           {/* Left Side - Game Area */}
           <div className="game-area">
-            {/* Gaming HUD - Horizontal Bar */}
-            <div className="gaming-hud">
+            {/* NEW: Game-Only Rotation Prompt */}
+            {showGameRotationPrompt && (
+              <div className="game-rotation-prompt">
+                <div className="game-rotation-content">
+                  <div className="game-rotation-icon">📱</div>
+                  <div className="game-rotation-text">Rotate to Landscape</div>
+                  <div className="game-rotation-subtitle">For optimal gaming experience</div>
+                </div>
+              </div>
+            )}
+            
+            {/* Actual Game Content */}
+            <div className="actual-game-content">
+              {/* Gaming HUD - Horizontal Bar */}
+              <div className="gaming-hud">
               {/* Mobile Dropdown Buttons - Only visible on mobile */}
               <div className="mobile-dropdown-buttons">
                 <button 
