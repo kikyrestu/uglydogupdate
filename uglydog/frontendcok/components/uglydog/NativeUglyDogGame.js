@@ -58,6 +58,13 @@ export default function NativeUglyDogGame() {
   
   // NEW: Game-only rotation state
   const [showGameRotationPrompt, setShowGameRotationPrompt] = useState(false)
+  
+  // NEW: Mini Interactive Preview state
+  const [miniGameState, setMiniGameState] = useState({
+    score: 0,
+    dogPosition: { x: 50, y: 50 },
+    showMiniGame: false
+  })
 
   // --- Timer/interval refs for bulletproof cleanup ---
   const autoMissTimerRef = React.useRef(null)
@@ -87,6 +94,41 @@ export default function NativeUglyDogGame() {
   }, [gameState.score])
 
   const currentLevel = getCurrentLevel()
+
+  // NEW: Mini Interactive Preview Functions
+  const spawnMiniDog = useCallback(() => {
+    const x = Math.random() * 60 + 20 // 20-80% range
+    const y = Math.random() * 40 + 30 // 30-70% range
+    setMiniGameState(prev => ({
+      ...prev,
+      dogPosition: { x, y }
+    }))
+  }, [])
+
+  const handleMiniDogClick = useCallback(() => {
+    setMiniGameState(prev => ({
+      ...prev,
+      score: prev.score + 10
+    }))
+    spawnMiniDog()
+  }, [spawnMiniDog])
+
+  const startMiniGame = useCallback(() => {
+    setMiniGameState(prev => ({
+      ...prev,
+      showMiniGame: true,
+      score: 0
+    }))
+    spawnMiniDog()
+  }, [spawnMiniDog])
+
+  // Auto-spawn mini dog every 2 seconds
+  useEffect(() => {
+    if (miniGameState.showMiniGame) {
+      const miniInterval = setInterval(spawnMiniDog, 2000)
+      return () => clearInterval(miniInterval)
+    }
+  }, [miniGameState.showMiniGame, spawnMiniDog])
 
   // Block UI with loading state (auth not ready)
   if (loading) {
@@ -2738,6 +2780,146 @@ export default function NativeUglyDogGame() {
             display: block;
           }
         }
+        
+        /* NEW: Mini Interactive Preview Styles */
+        .mini-preview-start-btn {
+          background: linear-gradient(135deg, #86FF00, #00FFFF);
+          border: none;
+          color: #000;
+          padding: 10px 20px;
+          border-radius: 25px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 15px;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(134, 255, 0, 0.3);
+        }
+        
+        .mini-preview-start-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(134, 255, 0, 0.4);
+        }
+        
+        .mini-preview-container {
+          width: 100%;
+          height: 160px;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 12px;
+          position: relative;
+          margin: 15px 0;
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          overflow: hidden;
+        }
+        
+        .mini-preview-score {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          color: #86FF00;
+          font-weight: bold;
+          font-size: 14px;
+          z-index: 10;
+          background: rgba(0, 0, 0, 0.7);
+          padding: 4px 8px;
+          border-radius: 15px;
+        }
+        
+        .mini-uglydog {
+          z-index: 5;
+        }
+        
+        .mini-uglydog:hover {
+          transform: scale(1.1);
+        }
+        
+        .mini-uglydog:active {
+          transform: scale(0.95);
+        }
+        
+        /* Universal Mobile Responsive Styles */
+        /* Small Mobile (320x568 - iPhone SE) */
+        @media only screen and (max-width: 375px) {
+          .mini-preview-container {
+            height: 140px;
+          }
+          
+          .mini-preview-score {
+            font-size: 12px;
+          }
+          
+          .game-rotation-text {
+            font-size: 16px;
+          }
+          
+          .game-rotation-subtitle {
+            font-size: 11px;
+          }
+          
+          .mini-preview-start-btn {
+            padding: 8px 16px;
+            font-size: 12px;
+          }
+        }
+        
+        /* Standard Mobile (376px - 414px) */
+        @media only screen and (min-width: 376px) and (max-width: 414px) {
+          .mini-preview-container {
+            height: 160px;
+          }
+          
+          .mini-preview-score {
+            font-size: 14px;
+          }
+        }
+        
+        /* Large Mobile (415px - 428px) */
+        @media only screen and (min-width: 415px) and (max-width: 428px) {
+          .mini-preview-container {
+            height: 180px;
+          }
+          
+          .mini-preview-score {
+            font-size: 16px;
+          }
+          
+          .game-rotation-text {
+            font-size: 20px;
+          }
+          
+          .game-rotation-subtitle {
+            font-size: 14px;
+          }
+        }
+        
+        /* Device Specific Optimizations */
+        /* iPhone SE/8/12/13 */
+        @media only screen and (device-width: 375px) and (device-height: 667px),
+                   only screen and (device-width: 390px) and (device-height: 844px),
+                   only screen and (device-width: 393px) and (device-height: 852px) {
+          .mini-preview-container {
+            border-radius: 20px;
+            border: 2px solid rgba(134, 255, 0, 0.3);
+          }
+          
+          .mini-preview-start-btn {
+            background: linear-gradient(135deg, #86FF00, #00FFFF);
+            font-weight: 600;
+          }
+        }
+        
+        /* Android Common Devices */
+        @media only screen and (device-width: 360px) and (device-height: 640px),
+                   only screen and (device-width: 411px) and (device-height: 731px),
+                   only screen and (device-width: 412px) and (device-height: 892px) {
+          .mini-preview-container {
+            background: rgba(0, 0, 0, 0.4);
+          }
+          
+          .mini-uglydog img {
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+          }
+        }
       `}</style>
 
       <div className="native-uglydog-game">
@@ -2745,13 +2927,54 @@ export default function NativeUglyDogGame() {
         <div className="game-main-grid">
           {/* Left Side - Game Area */}
           <div className="game-area">
-            {/* NEW: Game-Only Rotation Prompt */}
+            {/* NEW: Mini Interactive Preview */}
             {showGameRotationPrompt && (
               <div className="game-rotation-prompt">
                 <div className="game-rotation-content">
-                  <div className="game-rotation-icon">📱</div>
-                  <div className="game-rotation-text">Rotate to Landscape</div>
-                  <div className="game-rotation-subtitle">For optimal gaming experience</div>
+                  {!miniGameState.showMiniGame ? (
+                    <>
+                      <div className="game-rotation-icon">🎮</div>
+                      <div className="game-rotation-text">Try Mini Preview</div>
+                      <div className="game-rotation-subtitle">Tap to experience the game</div>
+                      <button 
+                        className="mini-preview-start-btn"
+                        onClick={startMiniGame}
+                      >
+                        Start Mini Game
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <div className="mini-preview-container">
+                        <div className="mini-preview-score">Score: {miniGameState.score}</div>
+                        <div 
+                          className="mini-uglydog"
+                          style={{
+                            left: `${miniGameState.dogPosition.x}%`,
+                            top: `${miniGameState.dogPosition.y}%`,
+                            position: 'absolute',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                          }}
+                          onClick={handleMiniDogClick}
+                        >
+                          <img 
+                            src="/api/placeholder/40/40" 
+                            alt="Mini UglyDog"
+                            style={{
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '50%',
+                              background: '#86FF00',
+                              border: '2px solid #ffffff',
+                              boxShadow: '0 4px 12px rgba(134, 255, 0, 0.5)'
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
